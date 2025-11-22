@@ -9,6 +9,16 @@ import type {
 } from './types';
 
 /**
+ * Helper function to unwrap API response
+ */
+function unwrapResponse<T>(response: T | ApiResponse<T>): T {
+  if (response && typeof response === 'object' && 'data' in response) {
+    return (response as ApiResponse<T>).data;
+  }
+  return response as T;
+}
+
+/**
  * AddressKit API Client for Vietnamese administrative divisions
  */
 export class AddressKitClient {
@@ -81,7 +91,7 @@ export class AddressKitClient {
     if (Array.isArray(response)) {
       return response;
     }
-    return response.data || [];
+    return unwrapResponse(response) || [];
   }
 
   /**
@@ -93,10 +103,7 @@ export class AddressKitClient {
         `/api/provinces/${provinceCode}`
       );
       
-      if ('data' in response) {
-        return response.data;
-      }
-      return response;
+      return unwrapResponse(response);
     } catch (error) {
       return null;
     }
@@ -113,7 +120,7 @@ export class AddressKitClient {
     if (Array.isArray(response)) {
       return response;
     }
-    return response.data || [];
+    return unwrapResponse(response) || [];
   }
 
   /**
@@ -128,10 +135,7 @@ export class AddressKitClient {
         `/api/provinces/${provinceCode}/districts/${districtCode}`
       );
       
-      if ('data' in response) {
-        return response.data;
-      }
-      return response;
+      return unwrapResponse(response);
     } catch (error) {
       return null;
     }
@@ -151,7 +155,7 @@ export class AddressKitClient {
     if (Array.isArray(response)) {
       return response;
     }
-    return response.data || [];
+    return unwrapResponse(response) || [];
   }
 
   /**
@@ -167,10 +171,7 @@ export class AddressKitClient {
         `/api/provinces/${provinceCode}/districts/${districtCode}/wards/${wardCode}`
       );
       
-      if ('data' in response) {
-        return response.data;
-      }
-      return response;
+      return unwrapResponse(response);
     } catch (error) {
       return null;
     }
