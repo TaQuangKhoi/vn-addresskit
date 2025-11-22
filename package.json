@@ -28,11 +28,25 @@
     "addresskit",
     "provinces",
     "districts",
-    "wards"
+    "wards",
+    "vietnamese",
+    "location",
+    "geography"
   ],
   "author": "",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TaQuangKhoi/vn-addresskit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TaQuangKhoi/vn-addresskit/issues"
+  },
+  "homepage": "https://github.com/TaQuangKhoi/vn-addresskit#readme",
   "packageManager": "pnpm@10.23.0",
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "devDependencies": {
     "typescript": "^5.7.2",
     "tsdown": "^0.3.0"
