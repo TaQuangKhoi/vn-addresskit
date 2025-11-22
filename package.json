@@ -1,0 +1,43 @@
+{
+  "name": "vn-addresskit",
+  "version": "0.1.0",
+  "description": "Type-safe TypeScript wrapper for AddressKit Vietnam API",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "prepublishOnly": "pnpm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "vietnam",
+    "address",
+    "api",
+    "typescript",
+    "addresskit",
+    "provinces",
+    "districts",
+    "wards"
+  ],
+  "author": "",
+  "license": "MIT",
+  "packageManager": "pnpm@10.23.0",
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "tsdown": "^0.3.0"
+  },
+  "dependencies": {
+    "whatwg-fetch": "^3.6.20"
+  }
+}
