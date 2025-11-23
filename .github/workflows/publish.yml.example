@@ -1,0 +1,70 @@
+# Example GitHub Actions workflow for publishing to npm and JSR
+# To use this workflow:
+# 1. Rename this file to publish.yml
+# 2. Add NPM_TOKEN to your GitHub repository secrets
+# 3. Add JSR_TOKEN to your GitHub repository secrets (if publishing to JSR)
+# 4. Create a new release or tag to trigger the workflow
+
+name: Publish Package
+
+on:
+  release:
+    types: [created]
+  # Or use manual trigger:
+  # workflow_dispatch:
+  #   inputs:
+  #     version:
+  #       description: 'Version to publish'
+  #       required: true
+
+jobs:
+  publish-npm:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: 10
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        registry-url: 'https://registry.npmjs.org'
+        cache: 'pnpm'
+    
+    - name: Install dependencies
+      run: pnpm install
+    
+    - name: Build
+      run: pnpm run build
+    
+    - name: Publish to npm
+      run: npm publish
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  publish-jsr:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+    
+    - name: Publish to JSR
+      run: npx jsr publish
+      env:
+        JSR_TOKEN: ${{ secrets.JSR_TOKEN }}
